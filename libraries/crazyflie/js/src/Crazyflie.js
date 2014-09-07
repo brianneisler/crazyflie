@@ -29,12 +29,12 @@ require('bugpack').context("*", function(bugpack) {
     // BugPack
     //-------------------------------------------------------------------------------
 
-    var Class               = bugpack.require('Class');
-    var Obj                 = bugpack.require('Obj');
-    var Proxy               = bugpack.require('Proxy');
-    var Copter              = bugpack.require('crazyflie.Copter');
-    var CopterManager       = bugpack.require('crazyflie.CopterManager');
-    var CopterService       = bugpack.require('crazyflie.CopterService');
+    var Class           = bugpack.require('Class');
+    var Obj             = bugpack.require('Obj');
+    var Proxy           = bugpack.require('Proxy');
+    var Copter          = bugpack.require('crazyflie.Copter');
+    var CopterManager   = bugpack.require('crazyflie.CopterManager');
+    var CopterService   = bugpack.require('crazyflie.CopterService');
 
 
     //-------------------------------------------------------------------------------
