@@ -17,6 +17,8 @@
 //@Require('crazyflie.Copter')
 //@Require('crazyflie.CopterManager')
 //@Require('crazyflie.CopterService')
+//@Require('crazyflie.Radio')
+//@Require('crazyflie.RadioManager')
 
 
 //-------------------------------------------------------------------------------
@@ -35,6 +37,8 @@ require('bugpack').context("*", function(bugpack) {
     var Copter          = bugpack.require('crazyflie.Copter');
     var CopterManager   = bugpack.require('crazyflie.CopterManager');
     var CopterService   = bugpack.require('crazyflie.CopterService');
+    var Radio           = bugpack.require('crazyflie.Radio');
+    var RadioManager    = bugpack.require('crazyflie.RadioManager');
 
 
     //-------------------------------------------------------------------------------
@@ -80,6 +84,16 @@ require('bugpack').context("*", function(bugpack) {
              * @type {function(new:CopterService)}
              */
             this.CopterService      = CopterService;
+
+            /**
+             * @type {function(new:Radio)}
+             */
+            this.Radio              = Radio;
+
+            /**
+             * @type {function(new:RadioManager)}
+             */
+            this.RadioManager       = RadioManager;
         }
     });
 

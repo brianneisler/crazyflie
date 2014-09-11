@@ -44,10 +44,11 @@ var uglifyjs            = enableModule("uglifyjs");
 //-------------------------------------------------------------------------------
 
 var name                = "crazyflie";
-var version             = "0.0.1";
+var version             = "0.0.2";
 var dependencies        = {
     aerogel: "0.0.5",
-    bugpack: "0.2.0"
+    bugpack: "0.2.0",
+    usb: "0.3.11"
 };
 
 
@@ -225,6 +226,50 @@ buildTarget('local').buildFlow(
         ])
     ])
 ).makeDefault();
+
+
+// Short BuildTarget
+//-------------------------------------------------------------------------------
+
+buildTarget('short').buildFlow(
+    series([
+        targetTask('clean'),
+        parallel([
+            series([
+                targetTask('createNodePackage', {
+                    properties: {
+                        packageJson: buildProject.getProperty("node.packageJson"),
+                        packagePaths: {
+                            ".": [buildProject.getProperty("node.readmePath")],
+                            "./lib": buildProject.getProperty("node.sourcePaths"),
+                            "./scripts": buildProject.getProperty("node.scriptPaths"),
+                            "./test": buildProject.getProperty("node.unitTest.testPaths"),
+                            "./test/lib": buildProject.getProperty("node.unitTest.sourcePaths"),
+                            "./test/scripts": buildProject.getProperty("node.unitTest.scriptPaths")
+                        }
+                    }
+                }),
+                targetTask('generateBugPackRegistry', {
+                    init: function(task, buildProject, properties) {
+                        var nodePackage = nodejs.findNodePackage(
+                            buildProject.getProperty("node.packageJson.name"),
+                            buildProject.getProperty("node.packageJson.version")
+                        );
+                        task.updateProperties({
+                            sourceRoot: nodePackage.getBuildPath()
+                        });
+                    }
+                }),
+                targetTask('packNodePackage', {
+                    properties: {
+                        packageName: "{{node.packageJson.name}}",
+                        packageVersion: "{{node.packageJson.version}}"
+                    }
+                })
+            ])
+        ])
+    ])
+);
 
 
 // Prod BuildTarget
